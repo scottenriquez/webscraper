@@ -34,11 +34,16 @@ def scrape_courses(html):
 def scrape_disciplines(html):
     soup = BeautifulSoup(html, 'html.parser')
     table_rows = soup.find_all('td')
+    count = 0
     disciplines = []
     for row in table_rows[1:]:
         for a in row.find_all('a', href=True):
             disciplines.append(a['href'])
-    return disciplines
+            print a['href']
+            count = count + 1
+            #print count
+            #time.sleep(1)
+    return disciplines[:74]
 
 
 def main():
