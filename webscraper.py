@@ -1,7 +1,10 @@
 # Web Scraper
 import urllib2
 from bs4 import BeautifulSoup
+from flask import Flask
 import time
+
+app = Flask(__name__)
 
 tu_base_url = "http://resources.utulsa.edu/schedule/2016FATUSCHED.html"
 tu_url = "http://resources.utulsa.edu/schedule/2016FACS.html"
@@ -58,4 +61,10 @@ def main():
         #print courses
     #print everything
 
-main()
+@app.route('/')
+def index():
+    main()
+    return "Hello World!"
+
+if __name__ == '__main__':
+    app.run(debug=True)
