@@ -1,7 +1,7 @@
 # Web Scraper
 import urllib2
 from bs4 import BeautifulSoup
-from flask import Flask
+from flask import Flask, render_template
 import time
 
 app = Flask(__name__)
@@ -9,6 +9,7 @@ app = Flask(__name__)
 tu_base_url = "http://resources.utulsa.edu/schedule/2016FATUSCHED.html"
 tu_url = "http://resources.utulsa.edu/schedule/2016FACS.html"
 base_url = "http://resources.utulsa.edu/schedule/"
+majors_url = "https://utulsa.edu/degrees/"
 
 def download_html(url):
     proxy = urllib2.ProxyHandler({'http': 'bvl-proxy1.conocophillips.net'})
@@ -57,14 +58,31 @@ def main():
         count = count + 1
         print "COUNT ", count
         courses = scrape_courses(html)
-        everything.append(courses)
+        #everything.append(courses)
         #print courses
     #print everything
 
+#def print_disciplines():
+
+
+#@app.route('/')
+#def index():
+    #html = download_html(majors_url)
+    #print scrape_courses(html)
+#    main()
+#    return render_template('layout.html')
+
 @app.route('/')
-def index():
-    main()
-    return "Hello World!"
+def get_data():
+    return render_template("layout.html")
+
+@app.route('/request', methods=['POST'])
+def jsonreq():
+    # Get the JSON data sent from the form
+    jsondata = request.form['jsondata']
+    # Convert the JSON data into a Python structure
+    data = json.loads(jsondata)
+    return render_template('request.html', data=data, jsondata=jsondata)
 
 if __name__ == '__main__':
     app.run(debug=True)
