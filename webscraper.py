@@ -55,13 +55,7 @@ def scrape_disciplines(html):
     for row in table_rows[1:]:
         for a in row.find_all('a', href=True):
             disciplines.append(a['href'])
-<<<<<<< HEAD
-            print a['href']
-            count = count + 1
-            #print count
-            #time.sleep(1)
-=======
->>>>>>> 86566f86c35d391f2c05f145014a3d4fe66f3c72
+
     return disciplines[:74]
 
 
@@ -94,7 +88,7 @@ def main():
 #    main()
 #    return render_template('layout.html')
 
-@app.route('/')
+@app.route('/index')
 def get_data():
     return render_template("layout.html")
 
