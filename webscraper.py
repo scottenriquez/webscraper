@@ -40,11 +40,11 @@ def major_names(html):
     soup = BeautifulSoup(html, 'html.parser')
     table_rows = soup.find_all('td')
     major = []
-    for row in table_rows[1:]:
+    for row in table_rows[:76]:
         for a in row.find_all('a'):
             major.append(a.text)
      
-    return major
+    return major[:76]
 
 #Disciplines
 def scrape_disciplines(html):
