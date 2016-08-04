@@ -35,14 +35,34 @@ def scrape_courses(html):
         courses.append(course)
     return courses
 
+#Major Names
+def major_names(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    table_rows = soup.find_all('td')
+    major = []
+    for row in table_rows[1:]:
+        for a in row.find_all('a'):
+            major.append(a.text)
+     
+    return major
+
+#Disciplines
 def scrape_disciplines(html):
     soup = BeautifulSoup(html, 'html.parser')
     table_rows = soup.find_all('td')
+    count = 0
     disciplines = []
     for row in table_rows[1:]:
         for a in row.find_all('a', href=True):
             disciplines.append(a['href'])
-    return disciplines
+<<<<<<< HEAD
+            print a['href']
+            count = count + 1
+            #print count
+            #time.sleep(1)
+=======
+>>>>>>> 86566f86c35d391f2c05f145014a3d4fe66f3c72
+    return disciplines[:74]
 
 
 def main():
@@ -50,6 +70,8 @@ def main():
     everything = []
     count = 0
     base_html = download_html(tu_base_url)
+    major_names(base_html)
+    print major_names(base_html)
     urls_endings = scrape_disciplines(base_html)
     for end in urls_endings:
         print base_url + end
@@ -83,6 +105,8 @@ def jsonreq():
     # Convert the JSON data into a Python structure
     data = json.loads(jsondata)
     return render_template('request.html', data=data, jsondata=jsondata)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
