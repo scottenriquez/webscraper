@@ -55,7 +55,7 @@ def scrape_disciplines(html):
     for row in table_rows[1:]:
         for a in row.find_all('a', href=True):
             disciplines.append(a['href'])
-    return disciplines[:74]
+    return disciplines[:76]
 
 
 def main():
@@ -65,7 +65,7 @@ def main():
     base_html = download_html(tu_base_url)
     major_names(base_html)
     print major_names(base_html)
-    urls_endings = scrape_disciplines(base_html)
+    urls_endings = scrape_disciplines(html)
     for end in urls_endings:
         print base_url + end
         html = download_html(base_url + end)
@@ -95,9 +95,22 @@ def get_data():
 
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
-   if request.method == 'POST':
-      result = request.form
-      return render_template("result.html",result = result)
+    if request.method == 'GET':
+        html = download_html(tu_base_url)
+        majors = major_names(html)
+        urls_endings = scrape_disciplines(html)
+        result = {}
+        for end in urls_endings:
+            print base_url + end
+            html = download_html(base_url + end)
+            #print html
+            courses = scrape_courses(html)
+            for i, major in enumerate(majors):
+                result[i] = courses[i]
+
+        print result
+    result = request.form
+    return render_template("result.html",result = result)
 
 if __name__ == '__main__':
     app.run(debug=True)
