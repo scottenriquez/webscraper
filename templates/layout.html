@@ -6,27 +6,17 @@
 </head>
 
 <body>
-	<!--<select action = "http://localhost:5000/result" method = "POST">
-		<option value ="arts"/>Kendall College of Arts & Sciences</option>
-		<option value ="business"/>Collins College of Business</option>
-		<option value ="engineering"/>Oxley College of Engineering & Natural Sciences</option>
-		<option value ="health"/>College of Health Sciences</option>
-		<option value ="law"/>Oxley College of Law</option>
-	</select>-->
 	<form action = "http://localhost:5000/result" method = "POST">
          <p>Name <input type = "text" name = "Name" /></p>
-         <p>Physics <input type = "text" name = "Physics" /></p>
-         <p>Chemistry <input type = "text" name = "chemistry" /></p>
-         <p>Maths <input type ="text" name = "Mathematics" /></p>
+         <select name = "majors">
+			
+			{% for major in majors %}
+				<option value="{{major}}">{{major}}</option>
+			{% endfor %}
+		</select>
          <p><input type = "submit" value = "submit" /></p>
 
-        <select>
-			<option value ="arts"/>Kendall College of Arts & Sciences</option>
-			<option value ="business"/>Collins College of Business</option>
-			<option value ="engineering"/>Oxley College of Engineering & Natural Sciences</option>
-			<option value ="health"/>College of Health Sciences</option>
-			<option value ="law"/>Oxley College of Law</option>
-		</select>
+        
      </form>
       
 </body>

@@ -89,7 +89,9 @@ def main():
 
 @app.route('/')
 def get_data():
-    return render_template("layout.html")
+    html = download_html(tu_base_url)
+    majors = major_names(html)
+    return render_template("layout.html",majors=majors)
 
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
