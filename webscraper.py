@@ -34,6 +34,18 @@ def scrape_courses(html):
         courses.append(course)
     return courses
 
+#Major Names
+def major_names(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    table_rows = soup.find_all('td')
+    major = []
+    for row in table_rows[1:]:
+        for a in row.find_all('a'):
+            major.append(a.text)
+     
+    return major
+
+#Disciplines
 def scrape_disciplines(html):
     soup = BeautifulSoup(html, 'html.parser')
     table_rows = soup.find_all('td')
@@ -41,7 +53,7 @@ def scrape_disciplines(html):
     for row in table_rows[1:]:
         for a in row.find_all('a', href=True):
             disciplines.append(a['href'])
-    return disciplines
+    return disciplines[:74]
 
 
 def main():
@@ -49,6 +61,8 @@ def main():
     everything = []
     count = 0
     base_html = download_html(tu_base_url)
+    major_names(base_html)
+    print major_names(base_html)
     urls_endings = scrape_disciplines(base_html)
     for end in urls_endings:
         print base_url + end
@@ -65,6 +79,8 @@ def main():
 def index():
     main()
     return "Hello World!"
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
