@@ -1,7 +1,7 @@
 # Web Scraper
 import urllib2
 from bs4 import BeautifulSoup
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import time
 
 app = Flask(__name__)
@@ -55,7 +55,10 @@ def scrape_disciplines(html):
     for row in table_rows[1:]:
         for a in row.find_all('a', href=True):
             disciplines.append(a['href'])
+<<<<<<< HEAD
 
+=======
+>>>>>>> d75cf332284108336226cc35a65c229e6c0db548
     return disciplines[:74]
 
 
@@ -92,15 +95,11 @@ def main():
 def get_data():
     return render_template("layout.html")
 
-@app.route('/request', methods=['POST'])
-def jsonreq():
-    # Get the JSON data sent from the form
-    jsondata = request.form['jsondata']
-    # Convert the JSON data into a Python structure
-    data = json.loads(jsondata)
-    return render_template('request.html', data=data, jsondata=jsondata)
-
-
+@app.route('/result',methods = ['POST', 'GET'])
+def result():
+   if request.method == 'POST':
+      result = request.form
+      return render_template("result.html",result = result)
 
 if __name__ == '__main__':
     app.run(debug=True)

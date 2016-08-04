@@ -1,38 +1,34 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Course Selector</title>
-	<h1> Select a major <h1>
+	<h1> Select a undergraduate degree program <h1>
 </head>
-<script>
-	var myMajor = [{{ ', '.join(major) }}];
-	alert(myMajor[0])
-</script>
+
 <body>
-	<div class="container">
-      <div class="header">
-        <h3 class="text-muted">How To Manage JSON Requests</h3>
-      </div>
-      <hr/>
-      <div>
-      	<form action="request" method="post">
-	        <textarea cols="60" rows="8" name="jsondata">[
-	  			{ "id": "1001", "type": "Regular" },
-	  			{ "id": "1002", "type": "Chocolate" },
-	  			{ "id": "1003", "type": "Blueberry" },
-	  			{ "id": "1004", "type": "Devil's Food" }
-			]</textarea><br /><br />
-	        <input type="submit" value="Send">
-      	</form>
-      </div>
-    </div>
-	<select>
-		<option value = myMajor[0]></option>
-		<option value="saab">Saab</option>
-		<option value="mercedes">Mercedes</option>
-		<option value="audi">Audi</option>
-	</select>
+	<!--<select action = "http://localhost:5000/result" method = "POST">
+		<option value ="arts"/>Kendall College of Arts & Sciences</option>
+		<option value ="business"/>Collins College of Business</option>
+		<option value ="engineering"/>Oxley College of Engineering & Natural Sciences</option>
+		<option value ="health"/>College of Health Sciences</option>
+		<option value ="law"/>Oxley College of Law</option>
+	</select>-->
+	<form action = "http://localhost:5000/result" method = "POST">
+         <p>Name <input type = "text" name = "Name" /></p>
+         <p>Physics <input type = "text" name = "Physics" /></p>
+         <p>Chemistry <input type = "text" name = "chemistry" /></p>
+         <p>Maths <input type ="text" name = "Mathematics" /></p>
+         <p><input type = "submit" value = "submit" /></p>
+
+        <select>
+			<option value ="arts"/>Kendall College of Arts & Sciences</option>
+			<option value ="business"/>Collins College of Business</option>
+			<option value ="engineering"/>Oxley College of Engineering & Natural Sciences</option>
+			<option value ="health"/>College of Health Sciences</option>
+			<option value ="law"/>Oxley College of Law</option>
+		</select>
+     </form>
+      
 </body>
 </html>
 
