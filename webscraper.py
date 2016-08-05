@@ -1,5 +1,5 @@
 # Web Scraper
-import urllib2
+import urllib as urllib2
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request
 import time
@@ -12,10 +12,7 @@ base_url = "http://resources.utulsa.edu/schedule/"
 majors_url = "https://utulsa.edu/degrees/"
 
 def download_html(url):
-    proxy = urllib2.ProxyHandler({'http': 'bvl-proxy1.conocophillips.net'})
-    opener = urllib2.build_opener(proxy)
-    urllib2.install_opener(opener)
-    response = urllib2.urlopen(url)
+    response = urllib2.request.urlopen(url)
     return response.read()
 
 def scrape_courses(html):
@@ -43,7 +40,7 @@ def major_names(html):
     for row in table_rows[:76]:
         for a in row.find_all('a'):
             major.append(a.text)
-     
+
     return major[:76]
 
 #Disciplines
@@ -64,14 +61,14 @@ def main():
     count = 0
     base_html = download_html(tu_base_url)
     major_names(base_html)
-    print major_names(base_html)
+    print (major_names(base_html))
     urls_endings = scrape_disciplines(html)
     for end in urls_endings:
-        print base_url + end
+        print(base_url + end)
         html = download_html(base_url + end)
         #print html
         count = count + 1
-        print "COUNT ", count
+        print("COUNT ", count)
         courses = scrape_courses(html)
         #everything.append(courses)
         #print courses
@@ -101,14 +98,14 @@ def result():
         urls_endings = scrape_disciplines(html)
         result = {}
         for end in urls_endings:
-            print base_url + end
+            print(base_url + end)
             html = download_html(base_url + end)
             #print html
             courses = scrape_courses(html)
             for i, major in enumerate(majors):
                 result[i] = courses[i]
 
-        print result
+        print(result)
     result = request.form
     return render_template("result.html",result = result)
 
